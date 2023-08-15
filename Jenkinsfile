@@ -6,9 +6,7 @@ pipeline {
         maven 'maven3'
     }
     
-    environment {
-        SCANNER_HOME=tool 'sonar-scanner'
-    }
+   
     
     stages{
         
@@ -30,23 +28,9 @@ pipeline {
             }
         }
         
-        stage("Sonarqube Analysis "){
-            steps{
-                withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Petclinic \
-                    -Dsonar.java.binaries=. \
-                    -Dsonar.projectKey=Petclinic '''
-    
-                }
-            }
-        }
+      
         
-        stage("OWASP Dependency Check"){
-            steps{
-                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'DP'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
+        
         
          stage("Build"){
             steps{
@@ -73,10 +57,5 @@ pipeline {
             }
         }
         
-        stage("Deploy To Tomcat"){
-            steps{
-                sh "cp  /var/lib/jenkins/workspace/CI-CD/target/petclinic.war /opt/apache-tomcat-9.0.65/webapps/ "
-            }
-        }
     }
 }
