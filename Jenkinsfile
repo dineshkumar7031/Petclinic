@@ -31,6 +31,13 @@ pipeline {
                 sh " mvn clean install"
             }
         }
+        stage("sonar quality check"){
+            steps{
+                withSonarQubeEnv(credentialsId: 'sonar') {
+                    sh "mvn sonar:sonar"
+                }
+            }
+            ]
         
         stage("Docker Build & Push"){
             steps{
