@@ -31,7 +31,7 @@ pipeline {
                 sh " mvn clean install"
             }
         }
-        stage("sonar quality check"){
+        stage("sonar check"){
             steps{
                 withSonarQubeEnv(credentialsId: 'sonar') {
                     script{
