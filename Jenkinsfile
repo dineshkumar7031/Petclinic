@@ -34,11 +34,12 @@ pipeline {
         stage("sonar quality check"){
             steps{
                 withSonarQubeEnv(credentialsId: 'sonar') {
+                    script{
                     sh "mvn sonar:sonar"
                 }
             }
-            ]
-        
+            }
+        }
         stage("Docker Build & Push"){
             steps{
                 script{
