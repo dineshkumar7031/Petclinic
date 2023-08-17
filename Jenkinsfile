@@ -1,8 +1,5 @@
 pipeline {
     agent any 
-
-  
-    
    
     
     stages{
@@ -38,7 +35,7 @@ pipeline {
         stage("Docker Build & Push"){
             steps{
                 script{
-                   withDockerRegistry(credentialsId: 'docker9849', toolName: 'docker') { 
+                   withDockerRegistry(credentialsId: 'dinesh9849', toolName: 'docker') { 
                         
                         sh "docker build -t image1 ."
                         sh "docker tag image1 dinesh9849/pet-clinic123:latest "
