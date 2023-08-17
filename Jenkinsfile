@@ -40,6 +40,14 @@ pipeline {
             }
             }
         }
+         stage("sonar quality gate"){
+            steps{
+                script{
+                waitForQualityGate abortPipeline: false, credentialsId: 'sonar'
+                }
+            }
+            }
+        
         stage("Docker Build & Push"){
             steps{
                 script{
